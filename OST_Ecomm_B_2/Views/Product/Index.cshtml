@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<script>
+
+    $(document).ready(function () {
+        $.get("https://dummyjson.com/products?limit=20", function (data, status) {
+            $.each(data.products, function (index,obj) {
+                $('#dvProducts').append(`
+                <div class="product-card" style='display:inline-block'>
+                    <a href="">
+                        <div class="product-image">
+                            <img src="${obj.thumbnail}" alt="" style='cursor:pointer' onclick="window.location.href='@Url.Action("SingleProduct","Product")?id=${obj.id}'"/>
+                        </div>
+                    </a>
+                    <div class="product-details">
+                        <h3 class="product-title" onclick="window.location.href='@Url.Action("SingleProduct","Product")?id=${obj.id}'" style='cursor:pointer'>${obj.title}</h3>
+                        <div class="product-price">
+                            <p>
+                                <span class="dicount-price">
+                                    <span>$</span>${obj.price}
+                                </span>
+                                <span class="original-price"><del><span>$</span>${obj.price}</del></span>
+                            </p>
+                        </div>
+                        <div class="product-ratting">
+                            <span class="ratting-star">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </span>
+                            <span>(rating)</span>
+                        </div>
+
+                        <div class="product-btn">
+                            <button class="addToCard-btn" id="addToCard">
+                                Add To Card
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `);
+            })
+        });
+    })
+</script>
+
+<div id="dvProducts">
+    
+</div>
+
+
+<style>
+
+a {
+  text-decoration: none;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+.header {
+  padding: 10px 0;
+  background: #059273;
+}
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  display: inline-block;
+  font-size: 30px;
+  font-weight: 700;
+  color: #000;
+}
+.logo a span {
+  color: #ffca00;
+}
+.search-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  background: #f1f1f1;
+  overflow: hidden;
+}
+.search-input input {
+  padding-left: 10px;
+  background: #ddd;
+  min-width: 600px;
+  height: 37px;
+  border: none;
+  outline: none;
+}
+.search-input input:focus {
+  border: none;
+  outline: none;
+}
+.search-icon {
+  background: #ffca00;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+a.login-btn {
+  font-size: 16px;
+  color: #fff;
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.search-icon i {
+  font-size: 18px;
+}
+.shop-icon-area {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.75rem;
+  color: #fff;
+}
+.shopping-card {
+  margin-right: 10px;
+}
+.shop-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.all-product-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.main-section {
+  margin-top: 30px;
+}
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  text-align: center;
+  max-width: 210px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h3.product-title {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.product-price p {
+  margin-bottom: 0px;
+}
+.product-image {
+  width: 100%;
+  overflow: hidden;
+}
+    .product-image img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        transition: 0.1s;
+    }
+.product-image img:hover {
+  transform: scale(1.2);
+}
+.original-price {
+  margin-left: 10px;
+  color: #6a6464;
+}
+
+.dicount-price {
+  font-size: 18px;
+  font-weight: 700;
+}
+.product-ratting i {
+  color: #e9780f;
+}
+
+.addToCard-btn {
+  margin-top: 5px;
+  display: inline-block;
+  padding: 5px 10px;
+  color: #000;
+  background: #ffed01;
+  text-align: center;
+  border: 1px solid #b3b0b0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.price-range {
+  overflow: hidden;
+}
+.price-range form {
+  display: flex;
+  justify-content: space-between;
+}
+.price-range form input {
+  width: 70px;
+}
+
+@@media (max-width: 1040px) {
+  .search-input input {
+    min-width: 400px;
+  }
+}
+@@media (max-width: 756px) {
+  .search-input input {
+    min-width: 300px;
+  }
+}
+    @@media (max-width: 660px) {
+        .search-bar {
+            display: none;
+        }
+    }
+</style>
